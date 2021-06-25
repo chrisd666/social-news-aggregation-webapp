@@ -1,0 +1,41 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# CLIENT
+# dependencies
+social-news-aggregation_client/node_modules
+social-news-aggregation_client/.pnp
+social-news-aggregation_client.pnp.js
+
+# testing
+social-news-aggregation_client/coverage
+
+# next.js
+social-news-aggregation_client/.next/
+social-news-aggregation_client/out/
+
+# production
+social-news-aggregation_client/build
+
+# misc
+social-news-aggregation_client/.DS_Store
+social-news-aggregation_client/*.pem
+
+# debug
+social-news-aggregation_client/npm-debug.log*
+social-news-aggregation_client/yarn-debug.log*
+social-news-aggregation_client/yarn-error.log*
+
+# local env files
+social-news-aggregation_client/.env.local
+social-news-aggregation_client/.env.development.local
+social-news-aggregation_client/.env.test.local
+social-news-aggregation_client/.env.production.local
+
+# vercel
+social-news-aggregation_client/.vercel
+
+
+
+# SERVER
+social-news-aggregation_server/node_modules
+social-news-aggregation_server/dist
