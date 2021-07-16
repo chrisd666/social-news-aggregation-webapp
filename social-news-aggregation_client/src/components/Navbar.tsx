@@ -1,15 +1,16 @@
 import React from "react";
-import { Box, Flex, Link } from "@chakra-ui/react";
+import { Box, Flex, Link, Button } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useMeQuery } from "../generated/graphql";
+import { useLogoutMutation, useMeQuery } from "../generated/graphql";
+import { useApolloClient } from "@apollo/client";
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
-  const { data, loading } = useMeQuery();
+  const client = useApolloClient();
+  const [logout, { loading }] = useLogoutMutation();
+  const { data } = useMeQuery();
   let body = null;
-
-  console.log(data);
 
   if (!data?.me) {
     body = (
@@ -23,7 +24,23 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       </>
     );
   } else {
-    body = <Box>{data.me.username}</Box>;
+    console.log(data);
+
+    body = (
+      <Flex>
+        <Box mr={2}>{data.me.username}</Box>
+        <Button
+          variant="link"
+          isLoading={loading}
+          onClick={async () => {
+            logout();
+            await client.resetStore();
+          }}
+        >
+          logout
+        </Button>
+      </Flex>
+    );
   }
 
   return (

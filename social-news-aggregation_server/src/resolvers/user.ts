@@ -11,6 +11,7 @@ import {
 import { User } from "../entities/User";
 import argon2 from "argon2";
 import { MyContext } from "../types";
+import { COOKIE_NAME } from "../constants";
 
 @InputType()
 class UsernamePasswordInput {
@@ -147,5 +148,19 @@ export class UserResolver {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  @Mutation(() => Boolean)
+  logout(@Ctx() { req, res }: MyContext) {
+    return new Promise((resolve) =>
+      req.session.destroy((err: any) => {
+        res.clearCookie(COOKIE_NAME);
+
+        if (err) {
+          console.log(err);
+          resolve(false);
+        } else resolve(true);
+      })
+    );
   }
 }
